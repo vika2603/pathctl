@@ -1,0 +1,23 @@
+version: 2
+project_name: pathctl
+builds:
+  - id: pathctl
+    main: ./cmd/pathctl
+    binary: pathctl
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X main.Version={{.Version}}
+archives:
+  - formats: [tar.gz]
+    name_template: "pathctl_{{ .Os }}_{{ .Arch }}"
+checksum:
+  name_template: "SHA256SUMS"
+release:
+  draft: false
